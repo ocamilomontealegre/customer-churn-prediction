@@ -16,6 +16,7 @@ seaborn = "^0.13.2"
 notebook = "^7.4.2"
 scikit-learn = "^1.6.1"
 xgboost = "^3.0.2"
+joblib = "^1.5.1"
 
 [tool.poetry.scripts]
 create_table = "scripts.create_table:main"
