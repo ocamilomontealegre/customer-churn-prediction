@@ -1,17 +1,20 @@
 from os import environ
 from psycopg2 import connect
 from pandas import read_csv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def load_data():
     df = read_csv("data/raw/Telco_Customer_Churn.csv")
 
     connection = connect(
-        dbname=environ["POSTGRES_DB_NAME"],
-        user=environ["POSTGRES_DB_USER"],
-        password=environ["POSTGRES_DB_PASSWORD"],
-        host=environ["POSTGRES_DB_HOST"],
-        port=environ["POSTGRES_DB_PORT"]
+        dbname=environ.get("POSTGRES_DB_NAME"),
+        user=environ.get("POSTGRES_DB_USER"),
+        password=environ.get("POSTGRES_DB_PASSWORD"),
+        host=environ.get("POSTGRES_DB_HOST"),
+        port=environ.get("POSTGRES_DB_PORT"),
     )
     cursor = connection.cursor()
 
