@@ -17,11 +17,10 @@ notebook = "^7.4.2"
 scikit-learn = "^1.6.1"
 xgboost = "^3.0.2"
 joblib = "^1.5.1"
+psycopg2-binary = "^2.9.10"
 
 [tool.poetry.scripts]
-create_table = "scripts.create_table:main"
-load_data = "scripts.load_data:main"
-read_db = "scripts.read_db:main"
+config = "scripts.set_config:main"
 
 [build-system]
 requires = ["poetry-core"]

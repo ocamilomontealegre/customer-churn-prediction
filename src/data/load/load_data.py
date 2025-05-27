@@ -1,24 +1,16 @@
-from os import environ
-from psycopg2 import connect
-from pandas import read_csv
-from dotenv import load_dotenv
-
-load_dotenv()
+from pathlib import Path
+from pandas import read_csv # type: ignore
+from src.common.database.database import Database
 
 
 def load_data():
-    df = read_csv("data/raw/Telco_Customer_Churn.csv")
+    csv_path = Path(__file__).parent.parent.parent / "data" / "raw" / "Telco_Customer_Churn.csv"
+    df = read_csv(csv_path)
 
-    connection = connect(
-        dbname=environ.get("POSTGRES_DB_NAME"),
-        user=environ.get("POSTGRES_DB_USER"),
-        password=environ.get("POSTGRES_DB_PASSWORD"),
-        host=environ.get("POSTGRES_DB_HOST"),
-        port=environ.get("POSTGRES_DB_PORT"),
-    )
+    connection = Database.connect()
     cursor = connection.cursor()
 
-    for _, row in df.iterrows():
+    for _, row in df.iterrows(): # type: ignore
         cursor.execute("""
             INSERT INTO customers (
                 customerID, gender, SeniorCitizen, Partner, Dependents, tenure,
@@ -26,7 +18,7 @@ def load_data():
                 DeviceProtection, TechSupport, StreamingTV, StreamingMovies, Contract,
                 PaperlessBilling, PaymentMethod, MonthlyCharges, TotalCharges, Churn
             ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """, tuple(row))
+        """, tuple(row)) # type: ignore
 
     connection.commit()
     cursor.close()
