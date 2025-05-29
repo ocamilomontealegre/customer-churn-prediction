@@ -19,30 +19,32 @@
   </a>
 </p>
 
-## 👀 Motivation
+## Requirements
 
+- [Docker Deskptop](https://www.docker.com/products/docker-desktop/)
+- [Python 3.12](https://www.python.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Poetry](https://python-poetry.org/)
 
 ## Project setup
 
-```bash
+- Setting up the db
 
+```bash
+  cd containers
+  docker-compose up -d 
 ```
 
-## Compile and run
+- Installing the Package Manager
 
 ```bash
-# development
-$ make run
+  pip install poetry
 ```
 
-## Lint
+- Create the db and load the data
 
 ```bash
-```
-
-## Test
-
-```bash
+  poetry run config
 ```
 
 ## License
